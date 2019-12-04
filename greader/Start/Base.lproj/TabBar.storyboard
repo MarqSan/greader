@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar View Controller-->
+        <scene sceneID="yl2-sM-qoP">
+            <objects>
+                <tabBarController id="49e-Tb-3d3" customClass="TabBarViewController" customModule="G_Reader" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
+                        <rect key="frame" x="0.0" y="975" width="768" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" name="Primary"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="bpW-sV-F0T" kind="relationship" relationship="viewControllers" id="2V8-br-cih"/>
+                        <segue destination="9Rn-MX-H4n" kind="relationship" relationship="viewControllers" id="R4F-Xu-Cnm"/>
+                        <segue destination="rBS-lP-KSr" kind="relationship" relationship="viewControllers" id="g98-hs-IOX"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="0.0"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="Xkr-0G-Aqx">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Home" id="bpW-sV-F0T" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Principal" image="tab_home" id="4zd-FG-4Nz"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="huB-jJ-tfA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="522" y="-71"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="47x-sb-ks8">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Search" id="9Rn-MX-H4n" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Buscar" image="tab_search" id="mYp-ZB-aWF"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j1N-bz-7bx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="527" y="0.0"/>
+        </scene>
+        <!--Favorites-->
+        <scene sceneID="VbF-Du-Cbm">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Favorites" id="rBS-lP-KSr" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favoritos" image="tab_favorites" id="DxS-QG-5Jw"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u8k-Kb-kby" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="536" y="70"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="tab_favorites" width="45" height="44"/>
+        <image name="tab_home" width="43" height="43"/>
+        <image name="tab_search" width="43" height="43"/>
+        <namedColor name="Primary">
+            <color red="1" green="0.6588235294117647" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
