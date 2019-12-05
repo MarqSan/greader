@@ -1,6 +1,7 @@
 //  Copyright © 2019 Lohan Marques. All rights reserved.
 
 import UIKit
+import Kingfisher
 
 class ArticleCell: UITableViewCell {
     
@@ -31,11 +32,12 @@ extension ArticleCell {
     func setupCell(_ article: Article) {
         let postDate = article.postDate.toDate()
         
-        mainImage.image = UIImage(named: "img_teste")
         category.text = article.category?.name
         title.text = article.title
         author.text = article.author
         relativeTime.text = postDate?.relativeTime
+        
+        setThumbnail(article.image)
     }
     
     func applyStyles(_ article: Article) {
@@ -45,5 +47,13 @@ extension ArticleCell {
         
         mainView.dropShadow(color: UIColor(named: Colors.shadow) ?? .white)
         title.sizeToFit()
+    }
+    
+    private func setThumbnail(_ image: String) {
+        guard let url = URL(string: image) else { return }
+        let resource = ImageResource(downloadURL: url)
+        
+        mainImage.kf.indicatorType = .activity
+        mainImage.kf.setImage(with: resource)
     }
 }
