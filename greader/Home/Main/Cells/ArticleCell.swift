@@ -29,16 +29,21 @@ extension ArticleCell {
 extension ArticleCell {
     
     func setupCell(_ article: Article) {
+        let postDate = article.postDate.toDate()
+        
         mainImage.image = UIImage(named: "img_teste")
-        category.text = article.category.name
+        category.text = article.category?.name
         title.text = article.title
         author.text = article.author
-        relativeTime.text = article.relativeTime
+        relativeTime.text = postDate?.relativeTime
     }
     
     func applyStyles(_ article: Article) {
-        mainView.dropShadow(color: Colors.shadow)
-        category.textColor = article.category.color
+        if let category = article.category, let color = category.color {
+            self.category.textColor = UIColor(named: color)!
+        }
+        
+        mainView.dropShadow(color: UIColor(named: Colors.shadow) ?? .white)
         title.sizeToFit()
     }
 }

@@ -110,6 +110,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
+                <color key="backgroundColor" name="Background"/>
                 <constraints>
                     <constraint firstItem="L4o-Fr-Ygr" firstAttribute="leading" secondItem="dkd-Xd-YkX" secondAttribute="leading" id="08E-Si-FDX"/>
                     <constraint firstAttribute="bottom" secondItem="L4o-Fr-Ygr" secondAttribute="bottom" constant="20" id="Fx0-bD-Hbu"/>
@@ -136,6 +137,9 @@
     </objects>
     <resources>
         <image name="icn_heart-empty" width="21" height="19"/>
+        <namedColor name="Background">
+            <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Foreground">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -8,11 +8,12 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
     @IBOutlet weak var articlesTableView: UITableView!
     @IBOutlet weak var articlesTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var articlesLoading: UIActivityIndicatorView!
     
     // MARK: VARIABLES
+    private var presenter: HomePresenter!
     private var categories: [Category] = Category.getCategories()
-    private var articles: [Article] = Article.getArticles()
-    
+    private var articles: [Article] = []
 }
 
 // MARK: LIFECYCLE
@@ -23,9 +24,34 @@ extension HomeViewController {
         
         navigationItem.setupLogoAsNavigationItem()
         
+        presenter = HomePresenter()
         categoriesCollectionView.backgroundColor = .none
         
-        setArticlesTableContentSize()
+        getArticles()
+    }
+}
+
+// MARK: PRESENTER
+extension HomeViewController {
+    
+    private func getArticles() {
+        articlesLoading.startAnimating()
+        
+        presenter.getArticles { [weak self] (response, error) in
+            if let err = error {
+                self?.articlesLoading.stopAnimating()
+                print(err.localizedDescription)
+                return
+            }
+            
+            if let articles = response {
+                self?.articles = articles
+                
+                self?.setArticlesTableContentSize()
+            }
+            
+            self?.articlesLoading.stopAnimating()
+        }
     }
 }
 
@@ -102,8 +128,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: METHODS
 extension HomeViewController {
     
-    fileprivate func setArticlesTableContentSize() {
+    private func setArticlesTableContentSize() {
         articlesTableView.setContentSize(rows: articles.count, heightForRow: ArticleCell.height.toInt())
         articlesTableHeight.constant = articlesTableView.contentSize.height
+        
+        articlesTableView.reloadData()
     }
 }

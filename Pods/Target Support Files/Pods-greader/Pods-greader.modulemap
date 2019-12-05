@@ -1,0 +1,6 @@
+framework module Pods_greader {
+  umbrella header "Pods-greader-umbrella.h"
+
+  export *
+  module * { export * }
+}

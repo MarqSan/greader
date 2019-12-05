@@ -2,9 +2,9 @@
 
 import UIKit
 
-struct Category {
+struct Category: Decodable {
     let name: String
-    let color: UIColor
+    var color: String?
     var image: String?
     
     static func getCategories() -> [Category] {
@@ -16,5 +16,11 @@ struct Category {
         ]
         
         return categories
+    }
+    
+    static func fillCategoryByName(_ name: String) -> Category? {
+        let categories = Category.getCategories()
+        
+        return categories.first(where: { $0.name == name })
     }
 }

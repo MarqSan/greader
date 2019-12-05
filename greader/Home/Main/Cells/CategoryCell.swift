@@ -26,10 +26,11 @@ extension CategoryCell {
 extension CategoryCell {
     
     func setupCell(_ category: Category) {
-        guard let image = category.image else { return }
+        guard let categoryImage = category.image,
+            let categoryColor = category.color else { return }
         
-        self.name.text = category.name
-        self.image.image = UIImage(named: image)
-        self.mainView.backgroundColor = category.color
+        name.text = category.name
+        image.image = UIImage(named: categoryImage)
+        mainView.backgroundColor = UIColor(named: categoryColor)!
     }
 }
