@@ -7,6 +7,7 @@ target 'greader' do
 
   # Pods for greader
   pod 'Alamofire', '~> 5.0.0-rc.3'
+  pod 'Kingfisher', '~> 5.11'
 
   target 'greaderTests' do
     inherit! :search_paths
