@@ -37,7 +37,7 @@ extension ArticleCell {
     }
     
     func applyStyles(_ article: Article) {
-        mainView.dropShadow(color: .black)
+        mainView.dropShadow(color: Colors.shadow)
         category.textColor = article.category.color
         title.sizeToFit()
     }
