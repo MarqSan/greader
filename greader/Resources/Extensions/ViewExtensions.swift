@@ -36,3 +36,15 @@ extension UINavigationItem {
         self.titleView = imageView
     }
 }
+
+extension UINavigationController {
+
+    func customizeBackButton() {
+        let backButtonImage = #imageLiteral(resourceName: "icn_arrow-left")
+
+        self.navigationBar.backIndicatorImage = backButtonImage
+        self.navigationBar.backIndicatorTransitionMaskImage = backButtonImage
+
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+}

@@ -6,6 +6,10 @@ struct Category: Decodable {
     let name: String
     var color: String?
     var image: String?
+}
+
+// MARK: METHODS
+extension Category {
     
     static func getCategories() -> [Category] {
         let categories: [Category] = [
@@ -22,5 +26,20 @@ struct Category: Decodable {
         let categories = Category.getCategories()
         
         return categories.first(where: { $0.name == name })
+    }
+}
+
+// MARK: TABLEVIEW
+extension Category {
+    
+    func instantiateCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> CategoryCell {
+        let nibCell = UINib(nibName: String(describing: CategoryCell.self), bundle: nil)
+        collectionView.register(nibCell, forCellWithReuseIdentifier: CategoryCell.identifier)
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
+        
+        cell.setupCell(self)
+        
+        return cell
     }
 }

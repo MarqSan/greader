@@ -1,6 +1,6 @@
 //  Copyright © 2019 Lohan Marques. All rights reserved.
 
-import Foundation
+import UIKit
 
 struct Article: Decodable {
     let id: Int32
@@ -11,6 +11,10 @@ struct Article: Decodable {
     let postDate: String
     var category: Category?
     var isFavorite: Bool? = false
+}
+
+// MARK: CORE DATA
+extension Article {
     
     func storeAsFavorite() {
         prepareEntity()
@@ -32,5 +36,23 @@ struct Article: Decodable {
         favorite.title = title
         favorite.author = author
         favorite.postDate = postDate
+    }
+}
+
+// MARK: TABLEVIEW
+extension Article {
+    
+    func instantiateCell(_ tableView: UITableView, indexPath: IndexPath) -> ArticleCell {
+        let nibCell = UINib(nibName: String(describing: ArticleCell.self), bundle: nil)
+        tableView.register(nibCell, forCellReuseIdentifier: ArticleCell.identifier)
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: ArticleCell.identifier, for: indexPath) as! ArticleCell
+        
+        cell.article = self
+        
+        cell.setupCell()
+        cell.applyStyles()
+        
+        return cell
     }
 }

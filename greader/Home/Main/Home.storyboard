@@ -126,18 +126,31 @@
                         <viewLayoutGuide key="safeArea" id="6X8-Sv-1Ig"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Principal" image="tab_home" id="McM-VT-iQW"/>
-                    <navigationItem key="navigationItem" id="1Jz-Al-pDB"/>
+                    <navigationItem key="navigationItem" id="1Jz-Al-pDB">
+                        <barButtonItem key="backBarButtonItem" title=" " id="cjm-DN-AmX"/>
+                    </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="articlesLoading" destination="Pe8-Oq-6fy" id="9rs-Su-9Qd"/>
                         <outlet property="articlesTableHeight" destination="Uo5-LA-sr6" id="b8x-N8-OYL"/>
                         <outlet property="articlesTableView" destination="H2b-lF-5h7" id="zLQ-KI-nft"/>
                         <outlet property="categoriesCollectionView" destination="iVU-Lk-f3n" id="4wC-dh-iS0"/>
+                        <segue destination="T7H-OT-8bV" kind="show" identifier="homeToCategories" id="g3b-2P-VKy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5L-CQ-T3G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1113.0434782608697" y="116.51785714285714"/>
+        </scene>
+        <!--Categories-->
+        <scene sceneID="xYI-Hv-iVc">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Categories" id="T7H-OT-8bV" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="8UF-Oh-STA"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bUv-bQ-QbB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1686" y="117"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YPJ-nF-CvF">

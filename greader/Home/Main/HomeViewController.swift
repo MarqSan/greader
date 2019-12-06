@@ -34,7 +34,21 @@ extension HomeViewController {
     }
 }
 
-// MARK: FAVORITE DELEGATE
+// MARK: SEGUES
+extension HomeViewController {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let categoriesVC = segue.destination as? CategoriesViewController {
+            guard let category = sender as? Category else { return }
+            
+            categoriesVC.articles = articles.filter { $0.categoryName == category.name }
+            categoriesVC.category = category
+        }
+    }
+}
+
+// MARK: DELEGATES
 extension HomeViewController: ArticleCellDelegate {
     
     func tappedFavoriteButton(id: Int32) {
@@ -87,15 +101,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let nibCell = UINib(nibName: String(describing: CategoryCell.self), bundle: nil)
-        collectionView.register(nibCell, forCellWithReuseIdentifier: CategoryCell.identifier)
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
-        let category = categories[indexPath.row]
-        
-        cell.setupCell(category)
-        
-        return cell
+        return categories[indexPath.row].instantiateCell(collectionView, indexPath: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -109,7 +115,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let category = categories[indexPath.row]
         
-        print(category)
+        performSegue(withIdentifier: Segues.homeToCategories, sender: category)
     }
 }
 
@@ -125,17 +131,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let nibCell = UINib(nibName: String(describing: ArticleCell.self), bundle: nil)
-        tableView.register(nibCell, forCellReuseIdentifier: ArticleCell.identifier)
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: ArticleCell.identifier, for: indexPath) as! ArticleCell
-        
-        let article = articles[indexPath.row]
-        cell.article = article
+        let cell = articles[indexPath.row].instantiateCell(tableView, indexPath: indexPath)
+
         cell.delegate = self
-        
-        cell.setupCell()
-        cell.applyStyles()
         
         return cell
     }
