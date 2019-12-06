@@ -4,6 +4,7 @@ import Foundation
 
 class HomePresenter {
     private var service: HomeServiceProtocol!
+    private var favoritesService: FavoritesService = FavoritesService()
     
     init(service: HomeServiceProtocol = HomeService()) {
         self.service = service
@@ -13,7 +14,6 @@ class HomePresenter {
 extension HomePresenter {
     
     func getArticles(completion: @escaping ([Article]?, ServiceError?) -> Void) {
-        
         service.getArticles(success: { [weak self] response in
             if var articles = response {
                 self?.separateArticlesByCategory(&articles)

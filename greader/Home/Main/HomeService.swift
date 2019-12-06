@@ -10,7 +10,6 @@ protocol HomeServiceProtocol {
 class HomeService: HomeServiceProtocol {
     
     func getArticles(success: @escaping ([Article]?) -> Void, failure: @escaping (ServiceError) -> Void) {
-        
         AF.request(API.articles, method: .get)
             .validate()
             .responseJSON { (response) in

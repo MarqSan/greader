@@ -12,6 +12,7 @@ class HomeViewController: UIViewController {
     
     // MARK: VARIABLES
     private var presenter: HomePresenter!
+    private var favoritesPresenter: FavoritesPresenter!
     private var categories: [Category] = Category.getCategories()
     private var articles: [Article] = []
 }
@@ -25,9 +26,19 @@ extension HomeViewController {
         navigationItem.setupLogoAsNavigationItem()
         
         presenter = HomePresenter()
+        favoritesPresenter = FavoritesPresenter()
+        
         categoriesCollectionView.backgroundColor = .none
         
         getArticles()
+    }
+}
+
+// MARK: FAVORITE DELEGATE
+extension HomeViewController: ArticleCellDelegate {
+    
+    func tappedFavoriteButton(id: Int32) {
+        print(id)
     }
 }
 
@@ -44,16 +55,22 @@ extension HomeViewController {
                 return
             }
             
-            if let articles = response {
-                self?.articles = articles
+            self?.favoritesPresenter.getFavorites { (favorites) in
+                if let articles = response {
+                    self?.articles = articles
+                    
+                    if !favorites.isEmpty {
+                        self?.markArticleAsFavorite(favorites)
+                    }
+                    
+                    self?.articlesTableView.setContentSize(rows: articles.count, heightForRow: ArticleCell.height.toInt())
+                    self?.articlesTableHeight.constant = self?.articlesTableView.contentSize.height ?? 0
+                    
+                    self?.articlesTableView.reloadData()
+                }
                 
-                self?.articlesTableView.setContentSize(rows: articles.count, heightForRow: ArticleCell.height.toInt())
-                self?.articlesTableHeight.constant = self?.articlesTableView.contentSize.height ?? 0
-                
-                self?.articlesTableView.reloadData()
+                self?.articlesLoading.stopAnimating()
             }
-            
-            self?.articlesLoading.stopAnimating()
         }
     }
 }
@@ -123,7 +140,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articles[indexPath.row]
         
@@ -131,9 +147,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension HomeViewController: ArticleCellDelegate {
+// MARK: METHODS
+extension HomeViewController {
     
-    func tappedFavoriteButton(id: Int) {
-        print(id)
+    private func markArticleAsFavorite(_ favorites: [Favorite]) {
+        let favoriteIds = favorites.map { $0.id }
+        
+        for (idx, article) in articles.enumerated() {
+            if favoriteIds.contains(article.id) {
+                articles[idx].isFavorite = true
+            }
+        }
     }
 }

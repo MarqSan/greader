@@ -4,7 +4,7 @@ import UIKit
 import Kingfisher
 
 protocol ArticleCellDelegate: NSObjectProtocol {
-    func tappedFavoriteButton(id: Int)
+    func tappedFavoriteButton(id: Int32)
 }
 
 class ArticleCell: UITableViewCell {
@@ -26,12 +26,15 @@ class ArticleCell: UITableViewCell {
     
     // MARK: ACTIONS
     @IBAction func setFavorite(_ sender: Any) {
-        guard let isFavorite = article.isFavorite else { return }
+        guard var isFavorite = article.isFavorite else { return }
         
-        article.isFavorite = !isFavorite
+        isFavorite = !isFavorite
+        
+        article.isFavorite = isFavorite
         
         setFavoriteStyle()
         addPulse()
+        handleFavoriteStore(willAdd: isFavorite)
         
         delegate?.tappedFavoriteButton(id: article.id)
     }
@@ -84,6 +87,14 @@ extension ArticleCell {
         
         let favoriteColor = isFavorite ? UIColor(named: Colors.primary) : UIColor(named: Colors.complementary)
         favoriteButton.tintColor = favoriteColor
+    }
+    
+    private func handleFavoriteStore(willAdd: Bool) {
+        if willAdd {
+            article.storeAsFavorite()
+        } else {
+            article.removeFromFavorites()
+        }
     }
 }
 
