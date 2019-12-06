@@ -10,5 +10,5 @@ struct Article: Decodable {
     let author: String
     let postDate: String
     var category: Category?
-    var isFavorite: Bool?
+    var isFavorite: Bool? = false
 }

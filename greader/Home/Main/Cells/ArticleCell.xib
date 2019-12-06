@@ -83,7 +83,10 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="juX-HF-OoO"/>
                                                 </constraints>
-                                                <state key="normal" image="icn_heart-empty"/>
+                                                <state key="normal" image="icn_heart"/>
+                                                <connections>
+                                                    <action selector="setFavorite:" destination="aCO-yt-8mq" eventType="touchUpInside" id="yqk-QD-mAE"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -136,7 +139,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icn_heart-empty" width="21" height="19"/>
+        <image name="icn_heart" width="21" height="19"/>
         <namedColor name="Background">
             <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -12,7 +12,6 @@
 		1D29D3C923974A0900477592 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D29D3C823974A0900477592 /* HomeViewController.swift */; };
 		1D29D3CE23974A0900477592 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D29D3CC23974A0900477592 /* TabBar.storyboard */; };
 		1D29D3D123974A0900477592 /* greader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1D29D3CF23974A0900477592 /* greader.xcdatamodeld */; };
-		1D29D3D323974A1200477592 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D29D3D223974A1200477592 /* Assets.xcassets */; };
 		1D29D3D623974A1200477592 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D29D3D423974A1200477592 /* LaunchScreen.storyboard */; };
 		1D29D3E123974A1300477592 /* greaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D29D3E023974A1300477592 /* greaderTests.swift */; };
 		1D29D3EC23974A1300477592 /* greaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D29D3EB23974A1300477592 /* greaderUITests.swift */; };
@@ -44,6 +43,7 @@
 		1D6B36C3239888190072A91B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B36C2239888190072A91B /* Colors.swift */; };
 		1D6B36C523989D130072A91B /* TableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B36C423989D130072A91B /* TableViewExtensions.swift */; };
 		1D6B36C723989D4C0072A91B /* TypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B36C623989D4C0072A91B /* TypeExtensions.swift */; };
+		1D7D726C2399CC8E006C78D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D29D3D223974A1200477592 /* Assets.xcassets */; };
 		56245871D258893FA1D48CAC /* Pods_greader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E35A7FBC1B1F338985A9A8BD /* Pods_greader.framework */; };
 		8B8E1644FF092EF64293F0C9 /* Pods_greaderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9FB9E598DDF46A7C095FA1 /* Pods_greaderTests.framework */; };
 /* End PBXBuildFile section */
@@ -469,7 +469,7 @@
 				1D36C77C2398439F00671DF3 /* Montserrat-Black.ttf in Resources */,
 				1D36C774239836F100671DF3 /* Montserrat-Regular.ttf in Resources */,
 				1D29D3D623974A1200477592 /* LaunchScreen.storyboard in Resources */,
-				1D29D3D323974A1200477592 /* Assets.xcassets in Resources */,
+				1D7D726C2399CC8E006C78D9 /* Assets.xcassets in Resources */,
 				1D36C77823983B4800671DF3 /* CategoryCell.xib in Resources */,
 				1D36C75C239802F900671DF3 /* Favorites.storyboard in Resources */,
 				1D29D3CE23974A0900477592 /* TabBar.storyboard in Resources */,

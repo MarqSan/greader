@@ -47,7 +47,10 @@ extension HomeViewController {
             if let articles = response {
                 self?.articles = articles
                 
-                self?.setArticlesTableContentSize()
+                self?.articlesTableView.setContentSize(rows: articles.count, heightForRow: ArticleCell.height.toInt())
+                self?.articlesTableHeight.constant = self?.articlesTableView.contentSize.height ?? 0
+                
+                self?.articlesTableView.reloadData()
             }
             
             self?.articlesLoading.stopAnimating()
@@ -109,10 +112,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.register(nibCell, forCellReuseIdentifier: ArticleCell.identifier)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: ArticleCell.identifier, for: indexPath) as! ArticleCell
-        let article = articles[indexPath.row]
         
-        cell.setupCell(article)
-        cell.applyStyles(article)
+        let article = articles[indexPath.row]
+        cell.article = article
+        cell.delegate = self
+        
+        cell.setupCell()
+        cell.applyStyles()
         
         return cell
     }
@@ -125,13 +131,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: METHODS
-extension HomeViewController {
+extension HomeViewController: ArticleCellDelegate {
     
-    private func setArticlesTableContentSize() {
-        articlesTableView.setContentSize(rows: articles.count, heightForRow: ArticleCell.height.toInt())
-        articlesTableHeight.constant = articlesTableView.contentSize.height
-        
-        articlesTableView.reloadData()
+    func tappedFavoriteButton(id: Int) {
+        print(id)
     }
 }

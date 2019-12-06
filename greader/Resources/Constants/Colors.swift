@@ -6,6 +6,7 @@ struct Colors {
 
     // BASE
     static let background = "Background"
+    static let complementary = "Complementary"
     static let foreground = "Foreground"
     static let primary = "Primary"
     static let secondary = "Secondary"
