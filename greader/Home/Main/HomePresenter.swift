@@ -36,17 +36,17 @@ extension HomePresenter {
         }
     }
     
-    private func separateArticlesByCategory(_ articles: inout [Article]) {
+    func separateArticlesByCategory(_ articles: inout [Article]) {
         for (idx, article) in articles.enumerated() {
             articles[idx].category = Category.fillCategoryByName(article.categoryName)
         }
     }
     
-    private func sortArticlesByDate(_ articles: inout [Article]) {
+    func sortArticlesByDate(_ articles: inout [Article]) {
         articles.sort { $0.postDate > $1.postDate }
     }
     
-    private func setArticlesFavorites(articles: inout [Article], _ favorites: [Favorite]) {
+    func setArticlesFavorites(articles: inout [Article], _ favorites: [Favorite]) {
         let favoriteIds = favorites.map { $0.id }
         
         for (idx, article) in articles.enumerated() {
