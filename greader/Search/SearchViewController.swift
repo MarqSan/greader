@@ -32,6 +32,7 @@ extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addArticlesObserver()
         getArticles()
     }
 }
@@ -58,9 +59,7 @@ extension SearchViewController {
                 return
             }
             
-            if let articles = response {
-                self?.articles = articles
-            }
+            self?.articles = response ?? []
         }
     }
 }
@@ -106,5 +105,16 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
+    }
+    
+    private func addArticlesObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateArticles), name: .articlesUpdate, object: nil)
+    }
+    
+    @objc func updateArticles(_ notification: Notification) {
+        guard let id = notification.object as? Int32 else { return }
+        
+        Article.updateArticleOnList(id: id, &searchedArticles)
+        searchesTableView.reloadData()
     }
 }

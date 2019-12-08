@@ -31,6 +31,7 @@ extension HomeViewController {
         categoriesCollectionView.backgroundColor = .none
         
         getArticles()
+        addArticlesObserver()
     }
 }
 
@@ -61,14 +62,6 @@ extension HomeViewController {
     }
 }
 
-// MARK: CELL DELEGATE
-extension HomeViewController: ArticleCellDelegate {
-    
-    func tappedFavoriteButton(id: Int32) {
-        print(id)
-    }
-}
-
 // MARK: PRESENTER
 extension HomeViewController {
     
@@ -82,22 +75,14 @@ extension HomeViewController {
                 return
             }
             
-            self?.favoritesPresenter.getFavorites { (favorites) in
-                if let articles = response {
-                    self?.articles = articles
-                    
-                    if !favorites.isEmpty {
-                        self?.markArticleAsFavorite(favorites)
-                    }
-                    
-                    self?.articlesTableView.setContentSize(rows: articles.count, heightForRow: ArticleCell.height.toInt())
-                    self?.articlesTableHeight.constant = self?.articlesTableView.contentSize.height ?? 0
-                    
-                    self?.articlesTableView.reloadData()
-                }
-                
-                self?.articlesLoading.stopAnimating()
-            }
+            let articlesResponse = response ?? []
+            self?.articles = articlesResponse
+            
+            self?.articlesTableView.setContentSize(rows: articlesResponse.count, heightForRow: ArticleCell.height.toInt())
+            self?.articlesTableHeight.constant = self?.articlesTableView.contentSize.height ?? 0
+            
+            self?.articlesTableView.reloadData()
+            self?.articlesLoading.stopAnimating()
         }
     }
 }
@@ -145,7 +130,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = articles[indexPath.row].instantiateCell(tableView, indexPath: indexPath)
-
         cell.delegate = self
         
         return cell
@@ -158,16 +142,25 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: CELL DELEGATE
+extension HomeViewController: ArticleCellDelegate {
+    
+    func tappedFavoriteButton(id: Int32) {
+        Article.updateArticleOnList(id: id, &articles)
+    }
+}
+
 // MARK: METHODS
 extension HomeViewController {
     
-    private func markArticleAsFavorite(_ favorites: [Favorite]) {
-        let favoriteIds = favorites.map { $0.id }
+    private func addArticlesObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateArticles), name: .articlesUpdate, object: nil)
+    }
+    
+    @objc func updateArticles(_ notification: Notification) {
+        guard let id = notification.object as? Int32 else { return }
         
-        for (idx, article) in articles.enumerated() {
-            if favoriteIds.contains(article.id) {
-                articles[idx].isFavorite = true
-            }
-        }
+        Article.updateArticleOnList(id: id, &articles)
+        articlesTableView.reloadData()
     }
 }

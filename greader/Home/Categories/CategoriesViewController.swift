@@ -56,13 +56,25 @@ extension CategoriesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return articles[indexPath.row].instantiateCell(tableView, indexPath: indexPath)
+        let cell = articles[indexPath.row].instantiateCell(tableView, indexPath: indexPath)
+        cell.delegate = self
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articles[indexPath.row]
         
         performSegue(withIdentifier: Segues.categoriesToArticleDetails, sender: article)
+    }
+}
+
+// MARK: CELL DELEGATE
+extension CategoriesViewController: ArticleCellDelegate {
+    
+    func tappedFavoriteButton(id: Int32) {
+        Article.updateArticleOnList(id: id, &articles)
+        ArticleCell.notifyArticles(withID: id)
     }
 }
 

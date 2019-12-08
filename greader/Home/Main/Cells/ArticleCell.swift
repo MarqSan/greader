@@ -72,4 +72,8 @@ extension ArticleCell {
         mainView.dropShadow(color: UIColor(named: Colors.shadow) ?? .white)
         title.sizeToFit()
     }
+    
+    static func notifyArticles(withID id: Int32) {
+        NotificationCenter.default.post(name: .articlesUpdate, object: id)
+    }
 }

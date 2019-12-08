@@ -19,7 +19,13 @@ extension HomePresenter {
                 self?.separateArticlesByCategory(&articles)
                 self?.sortArticlesByDate(&articles)
                 
-                completion(articles, nil)
+                self?.favoritesService.getFavorites { [weak self] favorites in
+                    if !favorites.isEmpty {
+                        self?.setArticlesFavorites(articles: &articles, favorites)
+                    }
+                    
+                    completion(articles, nil)
+                }
                 
             } else {
                 completion(nil, .emptyData)
@@ -38,5 +44,15 @@ extension HomePresenter {
     
     private func sortArticlesByDate(_ articles: inout [Article]) {
         articles.sort { $0.postDate > $1.postDate }
+    }
+    
+    private func setArticlesFavorites(articles: inout [Article], _ favorites: [Favorite]) {
+        let favoriteIds = favorites.map { $0.id }
+        
+        for (idx, article) in articles.enumerated() {
+            if favoriteIds.contains(article.id) {
+                articles[idx].isFavorite = true
+            }
+        }
     }
 }

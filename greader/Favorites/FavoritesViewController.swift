@@ -102,7 +102,9 @@ extension FavoritesViewController: ArticleCellDelegate {
     
     func tappedFavoriteButton(id: Int32) {
         articles = articles.filter { $0.id != id }
-        
+
         favoritesTableView.reloadData()
+        
+        ArticleCell.notifyArticles(withID: id)
     }
 }

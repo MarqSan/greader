@@ -92,4 +92,13 @@ extension Article {
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: resource)
     }
+    
+    static func updateArticleOnList(id: Int32, _ articles: inout [Article]) {
+        if let articleIdx = articles.firstIndex(where: { $0.id == id}) {
+            let article = articles[articleIdx]
+            let isFavorite = article.isFavorite ?? false
+           
+            articles[articleIdx].isFavorite = !isFavorite
+        }
+    }
 }
