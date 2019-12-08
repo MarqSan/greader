@@ -24,7 +24,6 @@ class CategoryTests: XCTestCase {
 extension CategoryTests {
     
     func testFillCategoryByName() {
-        
         let category = Category.fillCategoryByName(article.categoryName)
         
         XCTAssertNotNil(category)

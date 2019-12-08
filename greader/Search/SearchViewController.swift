@@ -10,7 +10,7 @@ class SearchViewController: UIViewController {
     
     // MARK: VARIABLES
     private var presenter = HomePresenter()
-    private var articles: [Article] = []
+    var articles: [Article] = []
     private var searchedArticles: [Article] = []
 }
 
@@ -94,19 +94,18 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if !searchText.isEmpty {
-            searchedArticles = articles.filter { $0.title.lowercased().contains(searchText.lowercased()) }
-        } else {
-            searchedArticles = []
-        }
-        
+        searchedArticles = updateArticlesOnSearch(text: searchText)
         searchesTableView.reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
     }
-    
+}
+
+// MARK: NOTIFICATIONS
+extension SearchViewController {
+
     private func addArticlesObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateArticles), name: .articlesUpdate, object: nil)
     }
@@ -116,5 +115,17 @@ extension SearchViewController: UISearchBarDelegate {
         
         Article.updateArticleOnList(id: id, &searchedArticles)
         searchesTableView.reloadData()
+    }
+}
+
+// MARK: METHODS
+extension SearchViewController {
+
+    func updateArticlesOnSearch(text: String) -> [Article] {
+        if text.isEmpty {
+            return []
+        }
+        
+        return articles.filter { $0.title.lowercased().contains(text.lowercased()) }
     }
 }
