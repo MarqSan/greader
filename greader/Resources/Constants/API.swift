@@ -5,5 +5,5 @@ import Foundation
 struct API {
     
     static let domain = "https://www.mocky.io/v2"
-    static let articles = "\(API.domain)/5de94d7c31000027ac6b1843"
+    static let articles = "\(API.domain)/5ded06463300002b002b907a"
 }
