@@ -38,17 +38,30 @@ extension HomeViewController {
 extension HomeViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if let categoriesVC = segue.destination as? CategoriesViewController {
-            guard let category = sender as? Category else { return }
+        switch segue.identifier {
+        case Segues.homeToCategories:
+            if let categoriesVC = segue.destination as? CategoriesViewController {
+                guard let category = sender as? Category else { return }
+                
+                categoriesVC.articles = articles.filter { $0.categoryName == category.name }
+                categoriesVC.category = category
+            }
             
-            categoriesVC.articles = articles.filter { $0.categoryName == category.name }
-            categoriesVC.category = category
+        case Segues.homeToArticleDetails:
+            if let articleDetailsVC = segue.destination as? ArticleDetailsViewController {
+                guard let article = sender as? Article else { return }
+                
+                articleDetailsVC.article = article
+            }
+            
+        default:
+            return
         }
+        
     }
 }
 
-// MARK: DELEGATES
+// MARK: CELL DELEGATE
 extension HomeViewController: ArticleCellDelegate {
     
     func tappedFavoriteButton(id: Int32) {
@@ -141,7 +154,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articles[indexPath.row]
         
-        print(article)
+        performSegue(withIdentifier: Segues.homeToArticleDetails, sender: article)
     }
 }
 

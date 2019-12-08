@@ -39,12 +39,17 @@ extension UINavigationItem {
 
 extension UINavigationController {
 
-    func customizeBackButton() {
+    func customizeBackButton(color: UIColor? = .black) {
         let backButtonImage = #imageLiteral(resourceName: "icn_arrow-left")
 
         self.navigationBar.backIndicatorImage = backButtonImage
         self.navigationBar.backIndicatorTransitionMaskImage = backButtonImage
+        self.navigationBar.tintColor = color
 
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    func removeNavBarLine() {
+        self.navigationBar.shadowImage = UIImage()
     }
 }

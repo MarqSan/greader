@@ -9,6 +9,7 @@ struct Article: Decodable {
     let title: String
     let author: String
     let postDate: String
+    var content: String
     var category: Category?
     var isFavorite: Bool? = false
 }
@@ -36,6 +37,7 @@ extension Article {
         favorite.title = title
         favorite.author = author
         favorite.postDate = postDate
+        favorite.content = content
     }
 }
 

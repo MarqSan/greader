@@ -136,11 +136,22 @@
                         <outlet property="articlesTableView" destination="H2b-lF-5h7" id="zLQ-KI-nft"/>
                         <outlet property="categoriesCollectionView" destination="iVU-Lk-f3n" id="4wC-dh-iS0"/>
                         <segue destination="T7H-OT-8bV" kind="show" identifier="homeToCategories" id="g3b-2P-VKy"/>
+                        <segue destination="40m-Zt-ziG" kind="show" identifier="homeToArticleDetails" id="7XH-Xk-Rep"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5L-CQ-T3G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1113.0434782608697" y="116.51785714285714"/>
+        </scene>
+        <!--ArticleDetails-->
+        <scene sceneID="JeY-tN-TBy">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ArticleDetails" id="40m-Zt-ziG" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="xdG-N9-YLA"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y1V-wt-i1x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1698" y="80"/>
         </scene>
         <!--Categories-->
         <scene sceneID="xYI-Hv-iVc">

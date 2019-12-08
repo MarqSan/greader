@@ -16,11 +16,14 @@ public class Favorite: NSManagedObject {
     @NSManaged public var title: String
     @NSManaged public var author: String
     @NSManaged public var postDate: String
+    @NSManaged public var content: String
 }
 
 extension Favorite {
     
     func toArticle() -> Article {
-        return Article(id: id, image: image ?? "", categoryName: categoryName, title: title, author: author, postDate: postDate, isFavorite: true)
+        return Article(id: id, image: image ?? "", categoryName: categoryName,
+                       title: title, author: author, postDate: postDate,
+                       content: content, isFavorite: true)
     }
 }
