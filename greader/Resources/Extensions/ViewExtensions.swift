@@ -28,10 +28,6 @@ extension UIView {
 // MARK: NAVIGATION
 
 extension UINavigationController {
-    
-    override open func awakeFromNib() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-    }
 
     func customizeBackButton(color: UIColor? = .black) {
         let backButtonImage = #imageLiteral(resourceName: "icn_arrow-left")
@@ -39,6 +35,10 @@ extension UINavigationController {
         self.navigationBar.backIndicatorImage = backButtonImage
         self.navigationBar.backIndicatorTransitionMaskImage = backButtonImage
         self.navigationBar.tintColor = color
+        
+        self.navigationBar.topItem?.title = ""
+
+
     }
     
     func removeNavBarLine() {
