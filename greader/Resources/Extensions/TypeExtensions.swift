@@ -13,7 +13,7 @@ extension CGFloat {
 // MARK: STRING
 extension String {
     
-    func toDate(inputFormat format: String = "dd/MM/yyyy HH:mm:ss") -> Date? {
+    func toDate(inputFormat format: String = "dd/MM/yyyy HH:mm") -> Date? {
         let formattedString = self.replacingOccurrences(of: ".000Z", with: "")
         
         let formatter = DateFormatter()

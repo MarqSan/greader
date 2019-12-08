@@ -26,16 +26,6 @@ extension UIView {
 }
 
 // MARK: NAVIGATION
-extension UINavigationItem {
-    
-    func setupLogoAsNavigationItem() {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 110, height: 35))
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "img_logo-full")
-        
-        self.titleView = imageView
-    }
-}
 
 extension UINavigationController {
 
@@ -51,5 +41,16 @@ extension UINavigationController {
     
     func removeNavBarLine() {
         self.navigationBar.shadowImage = UIImage()
+    }
+}
+
+extension UINavigationItem {
+    
+    func setupLogoAsNavigationItem() {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 110, height: 35))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "img_logo-full")
+        
+        self.titleView = imageView
     }
 }

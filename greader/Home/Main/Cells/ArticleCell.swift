@@ -75,6 +75,11 @@ extension ArticleCell {
     }
     
     private func setThumbnail(_ image: String) {
+        if image.isEmpty {
+            mainImage.image = UIImage(named: "img_no-image")
+            return
+        }
+        
         guard let url = URL(string: image) else { return }
         let resource = ImageResource(downloadURL: url)
         
