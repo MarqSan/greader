@@ -15,7 +15,8 @@ extension UITableView {
     }
     
     func addEmptyView(title: String, titleColor: UIColor = UIColor(named: Colors.primary) ?? .black,
-                      message: String?, messageColor: UIColor? = .black, image: UIImage? = nil) {
+                      message: String?, messageColor: UIColor? = UIColor(named: Colors.secondary) ?? .black,
+                      image: UIImage? = nil) {
         
         let dimensions = CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height)
         let emptyView = UIView(frame: dimensions)

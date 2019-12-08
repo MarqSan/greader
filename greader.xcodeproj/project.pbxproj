@@ -125,6 +125,8 @@
 		1D6B36C2239888190072A91B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		1D6B36C423989D130072A91B /* TableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewExtensions.swift; sourceTree = "<group>"; };
 		1D6B36C623989D4C0072A91B /* TypeExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeExtensions.swift; sourceTree = "<group>"; };
+		1D7E286C239C7FCC00E90C7A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		1D7E286D239C7FCD00E90C7A /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/TabBar.strings"; sourceTree = "<group>"; };
 		1EB43E864F15DEF59DE95C10 /* Pods-greader-greaderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greader-greaderUITests.release.xcconfig"; path = "Target Support Files/Pods-greader-greaderUITests/Pods-greader-greaderUITests.release.xcconfig"; sourceTree = "<group>"; };
 		36956ABC380E68A78860E298 /* Pods-greaderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-greaderTests.release.xcconfig"; path = "Target Support Files/Pods-greaderTests/Pods-greaderTests.release.xcconfig"; sourceTree = "<group>"; };
 		3B9FB9E598DDF46A7C095FA1 /* Pods_greaderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_greaderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -487,6 +489,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = 1D29D3B823974A0900477592;
 			productRefGroup = 1D29D3C223974A0900477592 /* Products */;
@@ -713,6 +716,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1D29D3CD23974A0900477592 /* Base */,
+				1D7E286D239C7FCD00E90C7A /* pt-BR */,
 			);
 			name = TabBar.storyboard;
 			sourceTree = "<group>";
@@ -721,6 +725,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1D29D3D523974A1200477592 /* Base */,
+				1D7E286C239C7FCC00E90C7A /* pt-BR */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -732,6 +737,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -792,6 +798,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

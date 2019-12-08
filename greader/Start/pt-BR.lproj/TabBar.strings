@@ -1,0 +1,9 @@
+
+/* Class = "UITabBarItem"; title = "Principal"; ObjectID = "4zd-FG-4Nz"; */
+"4zd-FG-4Nz.title" = "Principal";
+
+/* Class = "UITabBarItem"; title = "Favoritos"; ObjectID = "DxS-QG-5Jw"; */
+"DxS-QG-5Jw.title" = "Favoritos";
+
+/* Class = "UITabBarItem"; title = "Buscar"; ObjectID = "mYp-ZB-aWF"; */
+"mYp-ZB-aWF.title" = "Buscar";

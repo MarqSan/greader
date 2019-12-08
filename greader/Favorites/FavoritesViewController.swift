@@ -76,5 +76,4 @@ extension FavoritesViewController: ArticleCellDelegate {
         
         favoritesTableView.reloadData()
     }
-    
 }
