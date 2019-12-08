@@ -1,7 +1,6 @@
 //  Copyright © 2019 Lohan Marques. All rights reserved.
 
 import UIKit
-import Kingfisher
 
 protocol ArticleCellDelegate: NSObjectProtocol {
     func tappedFavoriteButton(id: Int32)
@@ -32,9 +31,9 @@ class ArticleCell: UITableViewCell {
         
         article.isFavorite = isFavorite
         
-        setFavoriteStyle()
-        addPulse()
-        handleFavoriteStore(willAdd: isFavorite)
+        article.setFavoriteStyle(button: favoriteButton)
+        favoriteButton.pulse()
+        article.handleFavoriteStore()
         
         delegate?.tappedFavoriteButton(id: article.id)
     }
@@ -61,8 +60,8 @@ extension ArticleCell {
         author.text = article.author
         relativeTime.text = postDate?.relativeTime
         
-        setThumbnail(article.image)
-        setFavoriteStyle()
+        article.setThumbnail(imageView: mainImage)
+        article.setFavoriteStyle(button: favoriteButton)
     }
     
     func applyStyles() {
@@ -72,50 +71,5 @@ extension ArticleCell {
         
         mainView.dropShadow(color: UIColor(named: Colors.shadow) ?? .white)
         title.sizeToFit()
-    }
-    
-    private func setThumbnail(_ image: String) {
-        if image.isEmpty {
-            mainImage.image = UIImage(named: "img_no-image")
-            return
-        }
-        
-        guard let url = URL(string: image) else { return }
-        let resource = ImageResource(downloadURL: url)
-        
-        mainImage.kf.indicatorType = .activity
-        mainImage.kf.setImage(with: resource)
-    }
-    
-    private func setFavoriteStyle() {
-        guard let isFavorite = article.isFavorite else { return }
-        
-        let favoriteColor = isFavorite ? UIColor(named: Colors.primary) : UIColor(named: Colors.complementary)
-        favoriteButton.tintColor = favoriteColor
-    }
-    
-    private func handleFavoriteStore(willAdd: Bool) {
-        if willAdd {
-            article.storeAsFavorite()
-        } else {
-            article.removeFromFavorites()
-        }
-    }
-}
-
-// MARK: ANIMATIONS
-extension ArticleCell {
-
-    private func addPulse() {
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
-        
-        UIView.animate(withDuration: 0.5, animations: { [weak self] in
-            self?.favoriteButton.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-            
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.5) { [weak self] in
-                self?.favoriteButton.transform = CGAffineTransform.identity
-            }
-        })
     }
 }

@@ -21,10 +21,10 @@ extension ArticleDetailsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         navigationController?.customizeBackButton(color: UIColor(named: Colors.secondary))
         navigationController?.removeNavBarLine()
-        
+
         setDetails()
     }
 }
@@ -39,8 +39,9 @@ extension ArticleDetailsViewController {
         titleLabel.text = article.title
         authorLabel.text = article.author
         postDateLabel.text = article.postDate
-        postImageView.image = UIImage(named: article.image) 
         contentLabel.text = article.content
+        
+        article.setThumbnail(imageView: postImageView)
     }
     
     private func applyCategoryColor() {

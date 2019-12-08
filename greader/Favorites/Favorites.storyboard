@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bMs-5m-VLF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rNm-Tl-5gd">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Favoritos-->
+        <!--Favorites View Controller-->
         <scene sceneID="q60-BJ-Bls">
             <objects>
                 <viewController storyboardIdentifier="favorites" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bMs-5m-VLF" customClass="FavoritesViewController" customModule="G_Reader" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oNT-f0-7aZ">
-                                <rect key="frame" x="20" y="64" width="374" height="749"/>
+                                <rect key="frame" x="20" y="108" width="374" height="705"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="bMs-5m-VLF" id="hnb-FM-Lcw"/>
@@ -35,21 +35,55 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FpU-XT-a7E"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Favoritos" image="tab_favorites" id="93q-Bi-Wca"/>
+                    <navigationItem key="navigationItem" id="g8D-4I-yEA"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="favoritesTableView" destination="oNT-f0-7aZ" id="8Zc-f0-VlV"/>
+                        <segue destination="sO7-dI-Z55" kind="show" identifier="favoritesToArticleDetails" id="jDG-4Z-gdD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrt-Ab-B35" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="422" y="-211"/>
+            <point key="canvasLocation" x="1331.8840579710145" y="-211.60714285714286"/>
+        </scene>
+        <!--ArticleDetails-->
+        <scene sceneID="kPr-ET-FCR">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ArticleDetails" id="sO7-dI-Z55" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="8dv-cl-eYl"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RFj-nN-Cfd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1936.9565217391305" y="-212.27678571428569"/>
+        </scene>
+        <!--Favoritos-->
+        <scene sceneID="iZH-W3-bJr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rNm-Tl-5gd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favoritos" image="tab_favorites" id="93q-Bi-Wca"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yhY-z1-W1F">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="Foreground"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bMs-5m-VLF" kind="relationship" relationship="rootViewController" id="H0G-zg-yUa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2HB-Da-sMN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="421.73913043478262" y="-211.60714285714286"/>
         </scene>
     </scenes>
     <resources>
         <image name="tab_favorites" width="45" height="44"/>
         <namedColor name="Background">
             <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Foreground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

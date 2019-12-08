@@ -1,6 +1,7 @@
 //  Copyright © 2019 Lohan Marques. All rights reserved.
 
 import UIKit
+import Kingfisher
 
 struct Article: Decodable {
     let id: Int32
@@ -14,7 +15,7 @@ struct Article: Decodable {
     var isFavorite: Bool? = false
 }
 
-// MARK: CORE DATA
+// MARK: COREDATA
 extension Article {
     
     func storeAsFavorite() {
@@ -56,5 +57,39 @@ extension Article {
         cell.applyStyles()
         
         return cell
+    }
+}
+
+// MARK: METHODS
+extension Article {
+    
+    func setFavoriteStyle(button: UIButton) {
+        guard let favorite = isFavorite else { return }
+        
+        let favoriteColor = favorite ? UIColor(named: Colors.primary) : UIColor(named: Colors.complementary)
+        button.tintColor = favoriteColor
+    }
+    
+    func handleFavoriteStore() {
+        let favorite = isFavorite ?? false
+        
+        if favorite {
+            storeAsFavorite()
+        } else {
+            removeFromFavorites()
+        }
+    }
+    
+    func setThumbnail(imageView: UIImageView) {
+        if image.isEmpty {
+            imageView.image = UIImage(named: "img_no-image")
+            return
+        }
+        
+        guard let url = URL(string: image) else { return }
+        let resource = ImageResource(downloadURL: url)
+        
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: resource)
     }
 }

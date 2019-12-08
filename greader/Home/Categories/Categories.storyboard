@@ -66,11 +66,22 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="articlesTableView" destination="dG6-3E-QOL" id="oqZ-1u-oLj"/>
+                        <segue destination="haA-Bf-vGj" kind="show" identifier="categoriesToArticleDetails" id="WJm-ux-CAJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xWi-sH-rtx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="123" y="114"/>
+        </scene>
+        <!--ArticleDetails-->
+        <scene sceneID="Dmx-B4-REc">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ArticleDetails" id="haA-Bf-vGj" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="4Sd-ir-IAj"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ffa-tF-QWv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="695" y="114"/>
         </scene>
     </scenes>
     <resources>
