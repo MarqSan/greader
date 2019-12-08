@@ -17,4 +17,16 @@ extension FavoritesPresenter {
             completion(favorites)
         }
     }
+    
+    func getFavoritesAsArticles(completion: @escaping ([Article]) -> Void) {
+        service.getFavorites { favorites in
+            var articles: [Article] = []
+            
+            for favorite in favorites {
+                articles.append(favorite.toArticle())
+            }
+            
+            completion(articles)
+        }
+    }
 }

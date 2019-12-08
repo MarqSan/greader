@@ -94,6 +94,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
+                                <color key="backgroundColor" name="Background"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="Foreground"/>
