@@ -38,6 +38,7 @@ extension FavoritesViewController {
     }
 }
 
+// MARK: TABLE VIEW
 extension FavoritesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,8 +60,21 @@ extension FavoritesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return articles[indexPath.row].instantiateCell(tableView, indexPath: indexPath)
+        let cell = articles[indexPath.row].instantiateCell(tableView, indexPath: indexPath)
+        
+        cell.delegate = self
+        
+        return cell
+    }
+}
+
+// MARK: DELEGATES
+extension FavoritesViewController: ArticleCellDelegate {
+    
+    func tappedFavoriteButton(id: Int32) {
+        articles = articles.filter { $0.id != id }
+        
+        favoritesTableView.reloadData()
     }
     
-
 }
