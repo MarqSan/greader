@@ -21,9 +21,7 @@ class ArticleTests: XCTestCase {
             Article(id: 4, image: "", categoryName: "Esportes", title: "Artigo 4", author: "", postDate: "04/12/2019 15:30", content: "")
         ]
         
-        favorite = Favorite(context: CoreDataManager.context)
-        favorite.id = 1
-        favorite.title = "Artigo 1"
+        persistFavorite()
     }
 
     override func tearDown() {
@@ -31,6 +29,7 @@ class ArticleTests: XCTestCase {
         
         presenter = nil
         articles = []
+        removeFavorite()
     }
 }
 
@@ -72,5 +71,26 @@ extension ArticleTests {
                 XCTAssert(articles.count > 0)
             }
         }
+    }
+}
+
+// MARK: HELPERS
+extension ArticleTests {
+
+    func persistFavorite() {
+        favorite = Favorite(context: CoreDataManager.context)
+        
+        favorite.id = 1
+        favorite.categoryName = "Tecnologia"
+        favorite.content = "Conteudo 1"
+        favorite.title = "Artigo 1"
+        favorite.author = "Autor 1"
+        favorite.postDate = ""
+        
+        CoreDataManager.save()
+    }
+    
+    func removeFavorite() {
+        CoreDataManager.deleteAll()
     }
 }

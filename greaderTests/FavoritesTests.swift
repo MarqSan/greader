@@ -12,6 +12,7 @@ class FavoritesTests: XCTestCase {
         super.setUp()
         
         presenter = FavoritesPresenter()
+        persistFavorite()
     }
 
     override func tearDown() {
@@ -26,17 +27,13 @@ class FavoritesTests: XCTestCase {
 extension FavoritesTests {
     
     func testGetFavorites() {
-        persistFavorite()
-        
         presenter.getFavorites { favorites in
             XCTAssertNotNil(favorites)
-//            XCTAssertEqual(favorites.count, 1)
+            XCTAssertEqual(favorites.count, 1)
         }
     }
     
     func testGetFavoritesAsArticles() {
-        persistFavorite()
-        
         presenter.getFavoritesAsArticles { [weak self] articles in
             XCTAssertNotNil(articles)
             XCTAssertEqual(articles[0].title, self?.favorite.title)
