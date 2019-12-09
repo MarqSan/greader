@@ -12,7 +12,7 @@ class CoreDataManager {
     
     private init() {}
     
-    static var entities = ["Favorites"]
+    static var entities = ["Favorite"]
     
     static var context: NSManagedObjectContext {
         return container.viewContext
