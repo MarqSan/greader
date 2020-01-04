@@ -3,33 +3,33 @@
 import Foundation
 import Alamofire
 
-protocol HomeServiceProtocol {
-    func getArticles(success: @escaping(_ articles: [Article]?) -> Void, failure: @escaping(_ error: ServiceError) -> Void)
-}
-
-class HomeService: HomeServiceProtocol {
+class HomeInteractor: HomePresenterToInteractorProtocol {
+    var presenter: HomeInteractorToPresenterProtocol?
     
-    func getArticles(success: @escaping ([Article]?) -> Void, failure: @escaping (ServiceError) -> Void) {
+    func fetchArticles() {
         AF.request(API.articles, method: .get)
             .validate()
             .responseJSON { (response) in
                 switch response.result {
                     case .success:
-                        guard let data = response.data else { return success(nil) }
+                        guard let data = response.data else {
+                            self.presenter?.articlesFetched(articles: [])
+                            return
+                        }
                         
                         do {
                             let articles = try JSONDecoder().decode([Article].self, from: data)
-                            success(articles)
+                            
+                            self.presenter?.articlesFetched(articles: articles)
                             
                         } catch {
-                            failure(.emptyData)
+                            self.presenter?.articlesFetchedFailed(error: .emptyData)
                         }
                     
                     case .failure:
-                        failure(.unknownError)
+                        self.presenter?.articlesFetchedFailed(error: .unknownError)
                         break
                 }
         }
     }
-    
 }

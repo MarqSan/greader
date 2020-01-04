@@ -10,6 +10,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Thread.sleep(forTimeInterval: 2.0)
+        
+        let tabs: [TabBarViewRouterProtocol] = [ HomeRouter(), SearchRouter() ]
+        let tabBar = TabBarRouter.createModule(tabs: tabs)
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = tabBar
+        window?.makeKeyAndVisible()
     
         return true
     }

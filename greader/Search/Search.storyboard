@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Search View Controller-->
+        <!--Buscar-->
         <scene sceneID="1EZ-op-DOf">
             <objects>
-                <viewController storyboardIdentifier="search" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UeT-lT-sUF" customClass="SearchViewController" customModule="G_Reader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UeT-lT-sUF" customClass="SearchViewController" customModule="G_Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mhp-aa-gPe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -51,6 +51,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3tb-WZ-HkX"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Buscar" image="tab_search" id="ia3-ek-NdC"/>
                     <navigationItem key="navigationItem" id="8dr-v4-kja"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>

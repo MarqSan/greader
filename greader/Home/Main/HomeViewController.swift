@@ -11,7 +11,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var articlesLoading: UIActivityIndicatorView!
     
     // MARK: VARIABLES
-    private var presenter: HomePresenter!
+    var presenter: HomeViewToPresenterProtocol?
     private var favoritesPresenter: FavoritesPresenter!
     private var categories: [Category] = Category.getCategories()
     private var articles: [Article] = []
@@ -25,12 +25,11 @@ extension HomeViewController {
         
         navigationItem.setupLogoAsNavigationItem()
         
-        presenter = HomePresenter()
         favoritesPresenter = FavoritesPresenter()
         
         categoriesCollectionView.backgroundColor = .none
         
-        getArticles()
+        presenter?.getArticles()
         addArticlesObserver()
     }
 }
@@ -58,32 +57,25 @@ extension HomeViewController {
         default:
             return
         }
-        
     }
 }
 
 // MARK: PRESENTER
-extension HomeViewController {
+extension HomeViewController: HomePresenterToViewProtocol {
     
-    private func getArticles() {
-        articlesLoading.startAnimating()
+    func showArticles(articles: [Article]) {
+        self.articles = articles
         
-        presenter.getArticles { [weak self] (response, error) in
-            if let err = error {
-                self?.articlesLoading.stopAnimating()
-                print(err.localizedDescription)
-                return
-            }
-            
-            let articlesResponse = response ?? []
-            self?.articles = articlesResponse
-            
-            self?.articlesTableView.setContentSize(rows: articlesResponse.count, heightForRow: ArticleCell.height.toInt())
-            self?.articlesTableHeight.constant = self?.articlesTableView.contentSize.height ?? 0
-            
-            self?.articlesTableView.reloadData()
-            self?.articlesLoading.stopAnimating()
-        }
+        articlesTableView.setContentSize(rows: articles.count, heightForRow: ArticleCell.height.toInt())
+        articlesTableHeight.constant = articlesTableView.contentSize.height
+        
+        articlesTableView.reloadData()
+        articlesLoading.stopAnimating()
+    }
+    
+    func showArticlesError(error: ServiceError) {
+        articlesLoading.stopAnimating()
+        print(error.localizedDescription)
     }
 }
 

@@ -2,39 +2,45 @@
 
 import Foundation
 
-class HomePresenter {
-    private var service: HomeServiceProtocol!
-    private var favoritesService: FavoritesService = FavoritesService()
+// MARK: VIEW
+class HomePresenter: HomeViewToPresenterProtocol {
     
-    init(service: HomeServiceProtocol = HomeService()) {
-        self.service = service
+    var view: HomePresenterToViewProtocol?
+    var interactor: HomePresenterToInteractorProtocol?
+    var router: HomePresenterToRouterProtocol?
+    
+    func getArticles() {
+        interactor?.fetchArticles()
     }
 }
 
-extension HomePresenter {
+// MARK: INTERACTOR
+extension HomePresenter: HomeInteractorToPresenterProtocol {
     
-    func getArticles(completion: @escaping ([Article]?, ServiceError?) -> Void) {
-        service.getArticles(success: { [weak self] response in
-            if var articles = response {
-                self?.separateArticlesByCategory(&articles)
-                self?.sortArticlesByDate(&articles)
-                
-                self?.favoritesService.getFavorites { [weak self] favorites in
-                    if !favorites.isEmpty {
-                        self?.setArticlesFavorites(articles: &articles, favorites)
-                    }
-                    
-                    completion(articles, nil)
-                }
-                
-            } else {
-                completion(nil, .emptyData)
-            }
-            
-        }) { err in
-            completion(nil, err)
-        }
+    func articlesFetched(articles: [Article]) {
+        var fetchedArticles = articles
+        
+        separateArticlesByCategory(&fetchedArticles)
+        sortArticlesByDate(&fetchedArticles)
+        
+        view?.showArticles(articles: fetchedArticles)
     }
+    
+    func articlesFetchedFailed(error: ServiceError) {
+        view?.showArticlesError(error: error)
+    }
+}
+
+//favoritesService.getFavorites { [weak self] favorites in
+//    if !favorites.isEmpty {
+//        self?.setArticlesFavorites(articles: &articles, favorites)
+//    }
+//
+//    completion(articles, nil)
+//}
+
+// MARK: METHODS
+extension HomePresenter {
     
     func separateArticlesByCategory(_ articles: inout [Article]) {
         for (idx, article) in articles.enumerated() {

@@ -9,7 +9,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchesTableView: UITableView!
     
     // MARK: VARIABLES
-    private var presenter = HomePresenter()
+    var presenter: HomeViewToPresenterProtocol?
     var articles: [Article] = []
     private var searchedArticles: [Article] = []
 }
@@ -32,8 +32,8 @@ extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter?.getArticles()
         addArticlesObserver()
-        getArticles()
     }
 }
 
@@ -50,17 +50,14 @@ extension SearchViewController {
 }
 
 // MARK: PRESENTER
-extension SearchViewController {
-
-    private func getArticles() {
-        presenter.getArticles { [weak self] (response, error) in
-            if let err = error {
-                print(err.localizedDescription)
-                return
-            }
-            
-            self?.articles = response ?? []
-        }
+extension SearchViewController: HomePresenterToViewProtocol {
+    
+    func showArticles(articles: [Article]) {
+        self.articles = articles
+    }
+    
+    func showArticlesError(error: ServiceError) {
+        print(error.localizedDescription)
     }
 }
 
