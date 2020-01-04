@@ -8,7 +8,7 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak var favoritesTableView: UITableView!
     
     // MARK: VARIABLES
-    var presenter: FavoritesPresenter!
+    var presenter: FavoritesViewToPresenterProtocol?
     var articles: [Article] = []
 }
 
@@ -28,13 +28,11 @@ extension FavoritesViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        getFavorites()
+        presenter?.getFavorites()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        presenter = FavoritesPresenter()
     }
 }
 
@@ -51,14 +49,11 @@ extension FavoritesViewController {
 }
 
 // MARK: PRESENTER
-extension FavoritesViewController {
+extension FavoritesViewController: FavoritesPresenterToViewProtocol {
     
-    private func getFavorites() {
-        presenter.getFavoritesAsArticles { [weak self] articles in
-            self?.articles = articles
-            
-            self?.favoritesTableView.reloadData()
-        }
+    func showFavoritesAsArticles(articles: [Article]) {
+        self.articles = articles
+        favoritesTableView.reloadData()
     }
 }
 

@@ -1,4 +1,4 @@
-//  Copyright © 2019 Lohan Marques. All rights reserved.
+//  Copyright © 2020 Lohan Marques. All rights reserved.
 
 import Foundation
 import Alamofire

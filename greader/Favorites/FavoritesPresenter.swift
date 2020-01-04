@@ -2,31 +2,25 @@
 
 import Foundation
 
-class FavoritesPresenter {
-    private var service: FavoritesServiceProtocol!
+class FavoritesPresenter: FavoritesViewToPresenterProtocol {
+    var view: FavoritesPresenterToViewProtocol?
+    var interactor: FavoritesPresenterToInteractorProtocol?
+    var router: FavoritesPresenterToRouterProtocol?
     
-    init(service: FavoritesServiceProtocol = FavoritesService()) {
-        self.service = service
+    func getFavorites() {
+        interactor?.fetchFavorites()
     }
 }
 
-extension FavoritesPresenter {
+extension FavoritesPresenter: FavoritesInteractorToPresenterProtocol {
     
-    func getFavorites(completion: @escaping ([Favorite]) -> Void) {
-        service.getFavorites { favorites in
-            completion(favorites)
+    func favoritesFetched(favorites: [Favorite]) {
+        var articles: [Article] = []
+        
+        for favorite in favorites {
+            articles.append(favorite.toArticle())
         }
-    }
-    
-    func getFavoritesAsArticles(completion: @escaping ([Article]) -> Void) {
-        service.getFavorites { favorites in
-            var articles: [Article] = []
-            
-            for favorite in favorites {
-                articles.append(favorite.toArticle())
-            }
-            
-            completion(articles)
-        }
+        
+        view?.showFavoritesAsArticles(articles: articles)
     }
 }

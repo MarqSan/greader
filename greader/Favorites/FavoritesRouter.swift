@@ -2,17 +2,17 @@
 
 import UIKit
 
-class HomeRouter: HomePresenterToRouterProtocol {
+class FavoritesRouter: FavoritesPresenterToRouterProtocol {
     
     static var storyboard: UIStoryboard {
-        return UIStoryboard(name: "Home", bundle: Bundle.main)
+        return UIStoryboard(name: "Favorites", bundle: Bundle.main)
     }
     
     static func createModule() -> UIViewController? {
-        guard let view = storyboard.instantiateViewController(withIdentifier: "homeVC") as? HomeViewController else { return nil }
-        let presenter = HomePresenter()
-        let interactor = HomeInteractor()
-        let router = HomeRouter()
+        guard let view = storyboard.instantiateViewController(withIdentifier: "favoritesVC") as? FavoritesViewController else { return nil }
+        let presenter = FavoritesPresenter()
+        let interactor = FavoritesInteractor()
+        let router = FavoritesRouter()
         
         view.presenter = presenter
         
@@ -27,9 +27,9 @@ class HomeRouter: HomePresenterToRouterProtocol {
 }
 
 // MARK: TAB
-extension HomeRouter: TabBarViewRouterProtocol {
+extension FavoritesRouter: TabBarViewRouterProtocol {
  
     func configureViewForTab() -> UIViewController? {
-        return HomeRouter.createModule()
+        return FavoritesRouter.createModule()
     }
 }
