@@ -24,6 +24,14 @@ class FavoritesRouter: FavoritesPresenterToRouterProtocol {
         
         return view
     }
+    
+    func toArticleDetailsScreen(from view: FavoritesPresenterToViewProtocol?, article: Article) {
+        guard let articleDetailsVC = ArticleDetailsRouter.createModule(article: article) else { return }
+        
+        if let sourceView = view as? UIViewController {
+            sourceView.navigationController?.pushViewController(articleDetailsVC, animated: true)
+        }
+    }
 }
 
 // MARK: TAB

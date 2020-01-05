@@ -12,7 +12,7 @@
         <!--Categories View Controller-->
         <scene sceneID="1RK-b4-W3T">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="xxN-mi-wZa" customClass="CategoriesViewController" customModule="G_Reader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="categoriesVC" hidesBottomBarWhenPushed="YES" id="xxN-mi-wZa" customClass="CategoriesViewController" customModule="G_Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P0H-Va-2It">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

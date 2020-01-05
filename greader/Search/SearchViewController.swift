@@ -37,18 +37,6 @@ extension SearchViewController {
     }
 }
 
-// MARK: SEGUES
-extension SearchViewController {
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let articleDetailsVC = segue.destination as? ArticleDetailsViewController {
-            guard let article = sender as? Article else { return }
-            
-            articleDetailsVC.article = article
-        }
-    }
-}
-
 // MARK: PRESENTER
 extension SearchViewController: HomePresenterToViewProtocol {
     
@@ -79,7 +67,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articles[indexPath.row]
         
-        performSegue(withIdentifier: Segues.searchToArticleDetails, sender: article)
+        presenter?.toArticleDetails(article: article)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

@@ -24,6 +24,22 @@ class HomeRouter: HomePresenterToRouterProtocol {
         
         return view
     }
+    
+    func toCategoriesScreen(from view: HomePresenterToViewProtocol?, articles: [Article], category: Category) {
+        guard let categoriesVC = CategoriesRouter.createModule(articles: articles, category: category) else { return }
+        
+        if let sourceView = view as? UIViewController {
+            sourceView.navigationController?.pushViewController(categoriesVC, animated: true)
+        }
+    }
+    
+    func toArticleDetailsScreen(from view: HomePresenterToViewProtocol?, article: Article) {
+        guard let articleDetailsVC = ArticleDetailsRouter.createModule(article: article) else { return }
+        
+        if let sourceView = view as? UIViewController {
+            sourceView.navigationController?.pushViewController(articleDetailsVC, animated: true)
+        }
+    }
 }
 
 // MARK: TAB

@@ -18,6 +18,8 @@ protocol FavoritesPresenterToInteractorProtocol: class {
 
 protocol FavoritesPresenterToRouterProtocol: class {
     static func createModule() -> UIViewController?
+    
+    func toArticleDetailsScreen(from view: FavoritesPresenterToViewProtocol?, article: Article)
 }
 
 protocol FavoritesViewToPresenterProtocol: class {
@@ -26,4 +28,5 @@ protocol FavoritesViewToPresenterProtocol: class {
     var router: FavoritesPresenterToRouterProtocol? { get set }
     
     func getFavorites()
+    func toArticleDetails(article: Article)
 }

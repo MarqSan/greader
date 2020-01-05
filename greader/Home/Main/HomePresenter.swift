@@ -5,12 +5,23 @@ import Foundation
 // MARK: VIEW
 class HomePresenter: HomeViewToPresenterProtocol {
     
+    // MARK: VARIABLES
     var view: HomePresenterToViewProtocol?
     var interactor: HomePresenterToInteractorProtocol?
     var router: HomePresenterToRouterProtocol?
     
+    // MARK: CALLS
     func getArticles() {
         interactor?.fetchArticles()
+    }
+    
+    // MARK: NAVIGATION
+    func toCategories(articles: [Article], category: Category) {
+        router?.toCategoriesScreen(from: view, articles: articles, category: category)
+    }
+    
+    func toArticleDetails(article: Article) {
+        router?.toArticleDetailsScreen(from: view, article: article)
     }
 }
 

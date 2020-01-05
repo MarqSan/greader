@@ -36,18 +36,6 @@ extension FavoritesViewController {
     }
 }
 
-// MARK: SEGUES
-extension FavoritesViewController {
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let articleDetailsVC = segue.destination as? ArticleDetailsViewController {
-            guard let article = sender as? Article else { return }
-            
-            articleDetailsVC.article = article
-        }
-    }
-}
-
 // MARK: PRESENTER
 extension FavoritesViewController: FavoritesPresenterToViewProtocol {
     
@@ -88,7 +76,7 @@ extension FavoritesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articles[indexPath.row]
         
-        performSegue(withIdentifier: Segues.favoritesToArticleDetails, sender: article)
+        presenter?.toArticleDetails(article: article)
     }
 }
 

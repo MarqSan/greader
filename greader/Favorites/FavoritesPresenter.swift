@@ -3,12 +3,17 @@
 import Foundation
 
 class FavoritesPresenter: FavoritesViewToPresenterProtocol {
+    
     var view: FavoritesPresenterToViewProtocol?
     var interactor: FavoritesPresenterToInteractorProtocol?
     var router: FavoritesPresenterToRouterProtocol?
     
     func getFavorites() {
         interactor?.fetchFavorites()
+    }
+    
+    func toArticleDetails(article: Article) {
+        router?.toArticleDetailsScreen(from: view, article: article)
     }
 }
 

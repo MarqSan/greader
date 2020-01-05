@@ -21,6 +21,9 @@ protocol HomePresenterToInteractorProtocol: class {
 
 protocol HomePresenterToRouterProtocol: class {
     static func createModule() -> UIViewController?
+    
+    func toCategoriesScreen(from view: HomePresenterToViewProtocol?, articles: [Article], category: Category)
+    func toArticleDetailsScreen(from view: HomePresenterToViewProtocol?, article: Article)
 }
 
 protocol HomeViewToPresenterProtocol: class {
@@ -29,4 +32,6 @@ protocol HomeViewToPresenterProtocol: class {
     var router: HomePresenterToRouterProtocol? { get set }
     
     func getArticles()
+    func toCategories(articles: [Article], category: Category)
+    func toArticleDetails(article: Article)
 }

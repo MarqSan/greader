@@ -26,7 +26,7 @@
         <!--Article Details View Controller-->
         <scene sceneID="pcF-WZ-gSs">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="boc-la-XFo" customClass="ArticleDetailsViewController" customModule="G_Reader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="articleDetailsVC" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="boc-la-XFo" customClass="ArticleDetailsViewController" customModule="G_Reader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jdj-jV-BgJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

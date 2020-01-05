@@ -34,32 +34,6 @@ extension HomeViewController {
     }
 }
 
-// MARK: SEGUES
-extension HomeViewController {
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case Segues.homeToCategories:
-            if let categoriesVC = segue.destination as? CategoriesViewController {
-                guard let category = sender as? Category else { return }
-                
-                categoriesVC.articles = articles.filter { $0.categoryName == category.name }
-                categoriesVC.category = category
-            }
-            
-        case Segues.homeToArticleDetails:
-            if let articleDetailsVC = segue.destination as? ArticleDetailsViewController {
-                guard let article = sender as? Article else { return }
-                
-                articleDetailsVC.article = article
-            }
-            
-        default:
-            return
-        }
-    }
-}
-
 // MARK: PRESENTER
 extension HomeViewController: HomePresenterToViewProtocol {
     
@@ -104,8 +78,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let category = categories[indexPath.row]
+        let articles = filterByCategoryName(category.name)
         
-        performSegue(withIdentifier: Segues.homeToCategories, sender: category)
+        presenter?.toCategories(articles: articles, category: category)
     }
 }
 
@@ -130,7 +105,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let article = articles[indexPath.row]
         
-        performSegue(withIdentifier: Segues.homeToArticleDetails, sender: article)
+        presenter?.toArticleDetails(article: article)
     }
 }
 
@@ -154,5 +129,9 @@ extension HomeViewController {
         
         Article.updateArticleOnList(id: id, &articles)
         articlesTableView.reloadData()
+    }
+    
+    func filterByCategoryName(_ categoryName: String) -> [Article] {
+        return articles.filter { $0.categoryName == categoryName }
     }
 }
