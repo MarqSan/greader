@@ -9,10 +9,15 @@ class HomePresenter: HomeViewToPresenterProtocol {
     var view: HomePresenterToViewProtocol?
     var interactor: HomePresenterToInteractorProtocol?
     var router: HomePresenterToRouterProtocol?
+    var articles: [Article]?
     
     // MARK: CALLS
     func getArticles() {
         interactor?.fetchArticles()
+    }
+    
+    func getFavorites() {
+        interactor?.fetchFavorites()
     }
     
     // MARK: NAVIGATION
@@ -34,21 +39,25 @@ extension HomePresenter: HomeInteractorToPresenterProtocol {
         separateArticlesByCategory(&fetchedArticles)
         sortArticlesByDate(&fetchedArticles)
         
-        view?.showArticles(articles: fetchedArticles)
+        self.articles = fetchedArticles
+        
+        getFavorites()
     }
     
     func articlesFetchedFailed(error: ServiceError) {
         view?.showArticlesError(error: error)
     }
+    
+    func favoritesFetched(favorites: [Favorite]) {
+        guard var articles = articles else { return }
+        
+        if !favorites.isEmpty {
+            setArticlesFavorites(articles: &articles, favorites)
+        }
+        
+        view?.showArticles(articles: articles)
+    }
 }
-
-//favoritesService.getFavorites { [weak self] favorites in
-//    if !favorites.isEmpty {
-//        self?.setArticlesFavorites(articles: &articles, favorites)
-//    }
-//
-//    completion(articles, nil)
-//}
 
 // MARK: METHODS
 extension HomePresenter {

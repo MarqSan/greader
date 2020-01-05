@@ -32,4 +32,11 @@ class HomeInteractor: HomePresenterToInteractorProtocol {
                 }
         }
     }
+    
+    // TODO: Need refactor to avoid repetition
+    func fetchFavorites() {
+        let favorites = CoreDataManager.get(Favorite.self)
+        
+        presenter?.favoritesFetched(favorites: favorites)
+    }
 }

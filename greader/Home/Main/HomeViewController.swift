@@ -12,7 +12,6 @@ class HomeViewController: UIViewController {
     
     // MARK: VARIABLES
     var presenter: HomeViewToPresenterProtocol?
-    private var favoritesPresenter: FavoritesPresenter!
     private var categories: [Category] = Category.getCategories()
     private var articles: [Article] = []
 }
@@ -24,8 +23,6 @@ extension HomeViewController {
         super.viewDidLoad()
         
         navigationItem.setupLogoAsNavigationItem()
-        
-        favoritesPresenter = FavoritesPresenter()
         
         categoriesCollectionView.backgroundColor = .none
         

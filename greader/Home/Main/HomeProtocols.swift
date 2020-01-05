@@ -11,12 +11,14 @@ protocol HomePresenterToViewProtocol: class {
 protocol HomeInteractorToPresenterProtocol: class {
     func articlesFetched(articles: [Article])
     func articlesFetchedFailed(error: ServiceError)
+    func favoritesFetched(favorites: [Favorite])
 }
 
 protocol HomePresenterToInteractorProtocol: class {
     var presenter: HomeInteractorToPresenterProtocol? { get set }
     
     func fetchArticles()
+    func fetchFavorites()
 }
 
 protocol HomePresenterToRouterProtocol: class {
@@ -32,6 +34,8 @@ protocol HomeViewToPresenterProtocol: class {
     var router: HomePresenterToRouterProtocol? { get set }
     
     func getArticles()
+    func getFavorites()
+    
     func toCategories(articles: [Article], category: Category)
     func toArticleDetails(article: Article)
 }
