@@ -2,7 +2,7 @@
 
 import UIKit
 
-struct Category: Decodable {
+struct Category: Decodable, Encodable {
     let name: String
     var color: String?
     var image: String?

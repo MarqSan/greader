@@ -3,7 +3,7 @@
 import UIKit
 import Kingfisher
 
-struct Article: Decodable {
+struct Article: Decodable, Encodable {
     let id: Int32
     let image: String
     let categoryName: String

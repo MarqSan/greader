@@ -12,15 +12,17 @@ class HomeInteractor: HomePresenterToInteractorProtocol {
             .responseJSON { (response) in
                 switch response.result {
                     case .success:
-                        guard let data = response.data else {
+                        let data = self.checkIfContainsArticles(data: response.data)
+                        
+                        if data.isEmpty {
                             self.presenter?.articlesFetched(articles: [])
                             return
                         }
                         
                         do {
-                            let articles = try JSONDecoder().decode([Article].self, from: data)
+                            let articles = try self.decodeArticles(data: data)
                             
-                            self.presenter?.articlesFetched(articles: articles)
+                            self.presenter?.articlesFetched(articles: articles!)
                             
                         } catch {
                             self.presenter?.articlesFetchedFailed(error: .emptyData)
@@ -38,5 +40,15 @@ class HomeInteractor: HomePresenterToInteractorProtocol {
         let favorites = CoreDataManager.get(Favorite.self)
         
         presenter?.favoritesFetched(favorites: favorites)
+    }
+    
+    func checkIfContainsArticles(data: Data?) -> Data {
+        return data ?? .empty
+    }
+    
+    func decodeArticles(data: Data) throws -> [Article]? {
+        let articles = try? JSONDecoder().decode([Article].self, from: data)
+        
+        return articles
     }
 }

@@ -6,40 +6,66 @@ import XCTest
 class FavoritesTests: XCTestCase {
     
     var presenter: FavoritesPresenter!
+    var interactor: FavoritesInteractor!
+    var mockPresenter: MockFavoritesPresenter!
+    
     var favorite: Favorite!
 
     override func setUp() {
         super.setUp()
         
+        mockPresenter = MockFavoritesPresenter()
+        
         presenter = FavoritesPresenter()
+        interactor = FavoritesInteractor()
+        
+        interactor.presenter = mockPresenter
+        presenter.interactor = interactor
+        
         persistFavorite()
     }
 
     override func tearDown() {
         super.tearDown()
         
-        presenter = nil
         removeFavorite()
+    }
+}
+
+class MockFavoritesPresenter: FavoritesInteractorToPresenterProtocol {
+    
+    var favorites: [Favorite]!
+    var promise: XCTestExpectation!
+    
+    func favoritesFetched(favorites: [Favorite]) {
+        self.favorites = favorites
+        
+        promise.fulfill()
     }
 }
 
 // MARK: INTEGRATIONS
 extension FavoritesTests {
-    
-    func testGetFavorites() {
-        presenter.getFavorites { favorites in
-            XCTAssertNotNil(favorites)
-            XCTAssertEqual(favorites.count, 1)
-        }
+
+    func testFetchFavorites() {
+        let promise = XCTestExpectation(description: #function)
+        mockPresenter.promise = promise
+        
+        interactor.fetchFavorites()
+        
+        wait(for: [promise], timeout: 10)
+        
+        XCTAssertNotNil(mockPresenter.favorites)
+        XCTAssertEqual(mockPresenter.favorites.count, 1)
     }
-    
-    func testGetFavoritesAsArticles() {
-        presenter.getFavoritesAsArticles { [weak self] articles in
-            XCTAssertNotNil(articles)
-            XCTAssertEqual(articles[0].title, self?.favorite.title)
-            XCTAssertNotNil(articles[0].isFavorite)
-            XCTAssertTrue(articles[0].isFavorite!)
-        }
+
+    func testGetFavorites() {
+        let articles = presenter.convertFavoritesToArticles([favorite])
+        
+        XCTAssertNotNil(articles)
+        XCTAssertEqual(articles[0].title, favorite.title)
+        XCTAssertNotNil(articles[0].isFavorite)
+        XCTAssertTrue(articles[0].isFavorite!)
     }
 }
 

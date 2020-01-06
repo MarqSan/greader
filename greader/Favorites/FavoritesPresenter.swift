@@ -20,12 +20,18 @@ class FavoritesPresenter: FavoritesViewToPresenterProtocol {
 extension FavoritesPresenter: FavoritesInteractorToPresenterProtocol {
     
     func favoritesFetched(favorites: [Favorite]) {
+        let articles = convertFavoritesToArticles(favorites)
+        
+        view?.showFavoritesAsArticles(articles: articles)
+    }
+    
+    func convertFavoritesToArticles(_ favorites: [Favorite]) -> [Article] {
         var articles: [Article] = []
         
         for favorite in favorites {
             articles.append(favorite.toArticle())
         }
         
-        view?.showFavoritesAsArticles(articles: articles)
+        return articles
     }
 }

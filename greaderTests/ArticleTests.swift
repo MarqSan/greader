@@ -6,15 +6,25 @@ import XCTest
 class ArticleTests: XCTestCase {
     
     var presenter: HomePresenter!
-    var articles: [Article] = []
+    var interactor: HomeInteractor!
+    var mockView: MockHomeView!
+    var mockPresenter: MockHomePresenter!
+    
     var favorite: Favorite!
 
     override func setUp() {
         super.setUp()
         
-        presenter = G_Reader.HomePresenter()
+        mockView = MockHomeView()
+        mockPresenter = MockHomePresenter()
         
-        articles = [
+        presenter = HomePresenter()
+        interactor = HomeInteractor()
+        
+        presenter?.view = mockView
+        interactor.presenter = mockPresenter
+        
+        mockView.articles = [
             Article(id: 1, image: "", categoryName: "Tecnologia", title: "Artigo 1", author: "", postDate: "03/12/2019 15:30", content: ""),
             Article(id: 2, image: "", categoryName: "Esportes", title: "Artigo 2", author: "", postDate: "02/12/2019 20:30", content: ""),
             Article(id: 3, image: "", categoryName: "Tecnologia", title: "Artigo 3", author: "", postDate: "03/12/2019 20:30", content: ""),
@@ -28,49 +38,133 @@ class ArticleTests: XCTestCase {
         super.tearDown()
         
         presenter = nil
-        articles = []
+        mockView = nil
         removeFavorite()
+    }
+}
+
+// MARK: MOCKS
+class MockHomeView: HomePresenterToViewProtocol {
+    
+    var articles: [Article]!
+    var errorGetArticles: ServiceError?
+    
+    func showArticles(articles: [Article]) {
+        self.articles = articles
+    }
+    
+    func showArticlesError(error: ServiceError) {
+        errorGetArticles = error
+    }
+}
+
+class MockHomePresenter: HomeInteractorToPresenterProtocol {
+    
+    var articles: [Article]!
+    var errorGetArticles: ServiceError?
+    var promise: XCTestExpectation!
+    
+    func articlesFetched(articles: [Article]) {
+        self.articles = articles
+        
+        promise.fulfill()
+    }
+    
+    func articlesFetchedFailed(error: ServiceError) {
+        errorGetArticles = error
+        
+        promise.fulfill()
+    }
+    
+    // TODO: Need refactor because violates Interface Segregation principle
+    func favoritesFetched(favorites: [Favorite]) {
+        return
     }
 }
 
 // MARK: UNITS
 extension ArticleTests {
-    
+
     func testSeparateArticlesByCategory() {
-        presenter.separateArticlesByCategory(&articles)
-        
-        XCTAssertNotNil(articles[0].category)
-        XCTAssertEqual(articles[0].category?.name, articles[0].categoryName)
+        presenter?.separateArticlesByCategory(&mockView.articles)
+
+        XCTAssertNotNil(mockView.articles[0].category)
+        XCTAssertEqual(mockView.articles[0].category?.name, mockView.articles[0].categoryName)
     }
-    
+
     func testSortArticlesByDate() {
-        presenter.sortArticlesByDate(&articles)
-        
-        XCTAssert(articles[0].postDate > articles[1].postDate)
+        presenter.sortArticlesByDate(&mockView.articles)
+
+        XCTAssert(mockView.articles[0].postDate > mockView.articles[1].postDate)
     }
-    
+
     func testSetArticlesFavorites() {
         let favorites: [Favorite] = [favorite]
-        
-        presenter.setArticlesFavorites(articles: &articles, favorites)
-        
-        XCTAssertNotNil(articles[0].isFavorite)
-        XCTAssertTrue(articles[0].isFavorite ?? false)
+
+        presenter.setArticlesFavorites(articles: &mockView.articles, favorites)
+
+        XCTAssertNotNil(mockView.articles[0].isFavorite)
+        XCTAssertTrue(mockView.articles[0].isFavorite ?? false)
     }
 }
 
 // MARK: INTEGRATIONS
 extension ArticleTests {
     
-    func testGetArticles() {
-        presenter.getArticles { (articles, err) in
-            XCTAssertNil(err)
-            XCTAssertNotNil(articles)
-            
-            if let articles = articles {
-                XCTAssert(articles.count > 0)
-            }
+    func testFetchArticles() {
+        let promise = expectation(description: #function)
+        mockPresenter.promise = promise
+        
+        interactor.fetchArticles()
+        
+        wait(for: [promise], timeout: 10)
+        
+        XCTAssertNil(mockPresenter.errorGetArticles)
+        XCTAssertNotNil(mockPresenter.articles)
+        
+        if let articles = mockPresenter.articles {
+            XCTAssert(articles.count > 0)
         }
+    }
+    
+    func testFetchEmptyArticles() {
+        var emptyData = Data()
+        var fullData: Data?
+        
+        fullData = try? JSONEncoder().encode(mockView.articles)
+        
+        if fullData == nil {
+           return XCTFail()
+        }
+        
+        emptyData = interactor.checkIfContainsArticles(data: emptyData)
+        fullData = interactor.checkIfContainsArticles(data: fullData!)
+        
+        XCTAssertTrue(emptyData.isEmpty)
+        XCTAssertFalse(fullData!.isEmpty)
+    }
+    
+    func testFetchFailedArticles() {
+        API.articles = "wrong_url"
+        
+        let promise = expectation(description: #function)
+        mockPresenter.promise = promise
+        
+        interactor.fetchArticles()
+        
+        wait(for: [promise], timeout: 10)
+        
+        XCTAssertNotNil(mockPresenter.errorGetArticles)
+    }
+    
+    func testFetchArticlesWithParseError() {
+        guard let data = "{ id: 1 }".data(using: .utf8) else {
+            return XCTFail()
+        }
+        
+        let articles = try? interactor.decodeArticles(data: data)
+        
+        XCTAssertNil(articles)
     }
 }
 
